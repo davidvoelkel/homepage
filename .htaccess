@@ -1,4 +1,4 @@
 AddCharset UTF-8 .html
 RewriteEngine on
 RewriteCond   %{HTTP_HOST}                 ^www\.[^.]+\.com$
-RewriteRule   ^(.+)                        %1$1     
+RewriteRule   ^(.+)                        %1/$1     
