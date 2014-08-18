@@ -1,10 +1,10 @@
 AddCharset UTF-8 .html
 Options FollowSymLinks
 RewriteEngine on
-RewriteRule   ^(i)$	index.html [L]
-RewriteCond   %{HTTP_HOST}                 ^www.davidvoelkel.de$
-RewriteCond   %{REQUEST_URI}                 !>davidvoelkel
-RewriteRule   ^(.+)$                        davidvoelkel/$1	[L] 
-RewriteCond   %{HTTP_HOST}                 ^www.violasiegemund.com$
-RewriteCond   %{REQUEST_URI}                 !>violasiegemund
-RewriteRule   ^(.+)$                        violasiegemund/$1	[L] 
+RewriteRule   ^(i)$	http://www.davidvoelkel.de/index.html [R=302,L]
+#RewriteCond   %{HTTP_HOST}                 ^www.davidvoelkel.de$
+#RewriteCond   %{REQUEST_URI}                 !>davidvoelkel
+#RewriteRule   ^(.+)$                        davidvoelkel/$1	[L] 
+#RewriteCond   %{HTTP_HOST}                 ^www.violasiegemund.com$
+#RewriteCond   %{REQUEST_URI}                 !>violasiegemund
+#RewriteRule   ^(.+)$                        violasiegemund/$1	[L] 
