@@ -1,4 +1,5 @@
 AddCharset UTF-8 .html
+Options FollowSymLinks
 RewriteEngine on
 RewriteRule   ^(i)$	index.html [L]
 RewriteCond   %{HTTP_HOST}                 ^www.davidvoelkel.de$
