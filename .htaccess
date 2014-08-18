@@ -1,5 +1,5 @@
 AddCharset UTF-8 .html
-RewriteEngine on
+#RewriteEngine on
 #RewriteRule   ^(i)$	http://www.davidvoelkel.de/index.html [R=302,L]
 #RewriteCond   %{HTTP_HOST}                 ^www.davidvoelkel.de$
 #RewriteCond   %{REQUEST_URI}                 !>davidvoelkel
