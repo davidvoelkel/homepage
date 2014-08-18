@@ -1,4 +1,4 @@
 AddCharset UTF-8 .html
 RewriteEngine on
 RewriteCond   %{HTTP_HOST}                 ^www\.violasiegemund\.com$
-RewriteRule   ^(.+)$                        violasiegemund/$1	[R=302] 
+RewriteRule   ^(.+)$                        http://www.davidvoelkel.de/violasiegemund/$1	[R=302] 
