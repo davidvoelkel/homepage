@@ -1,3 +1,5 @@
 AddCharset UTF-8 .html
 RewriteEngine on
-RewriteRule   ^/$  davidvoelkel/
+RewriteCond   %{HTTP_HOST}                 ^www\.[^.]+\.com$
+RewriteRule   ^(.+)                        %{HTTP_HOST}$1          [C]
+RewriteRule   ^www\.([^.]+)\.com(.*) $1$2
