@@ -1,11 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8"/>
-	<title>David Völkel</title>
+<meta charset="utf-8"/>
+<title>David Völkel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	*, *:before, *:after {
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	/* Small screens (default) */
+	html {
+		font: 400 100%/1.5 "HelveticaNeue","Helvetica","Arial",sans-serif;
+		font-size: 100%;
+	}
+	/* Medium screens (640px) */
+	@media (min-width: 40rem) {
+		html { }
+	}
+ 
+	/* Large screens (1024px) */
+	@media (min-width: 64rem) {
+		html { }
+	}
+	.avatar {
+		float:left;
+		padding:20px;
+	}
+</style>
+<link rel="stylesheet" href="normalize.css">
 </head>
+
 <body>
-	<h1>David Völkel</h1>
-	<img src="images/david_voelkel.jpg"></img>
+<div class="container">
+	<div class="avatar">
+		<img width="60" height="60" src="images/david_voelkel.jpg"></img>
+	</div>
+	<div>
+		<h1>David Völkel</h1>
+		<ul>
+			<li>Developer and coach @<a href="http://www.codecentric.de">codecentric</a></li>
+			<li>Software Craftman @<a href="http://www.softwerkskammer.org">Softwerkskammer</a></li>
+		</ul>
+	</div>
+</div>
 </body>
 </html>
