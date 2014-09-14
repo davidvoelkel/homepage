@@ -5,6 +5,7 @@
 <meta charset="utf-8"/>
 <title>David Völkel</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="normalize.css">
 <style>
 	*, *:before, *:after {
 		-moz-box-sizing: border-box;
@@ -26,13 +27,14 @@
 		html { }
 	}
 	.avatar {
-		float:left;
-		padding:20px;
+		padding:10px;
+	}
+	td {
+		padding:4px;
 	}
 </style>
-<link rel="stylesheet" href="normalize.css">
+
 <script>
-	<!-- Google Analytics Section -->
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -40,19 +42,19 @@
 
   ga('create', 'UA-54790383-1', 'auto');
   ga('send', 'pageview');
-
 </script>
+
 </head>
 
 <body>
 <div class="container">
-	<div class="avatar">
-		<img width="60" height="60" src="images/david_voelkel.jpg"></img>
-	</div>
 	<div>
+<!--
+		<img class="avatar" width="60" height="60" src="images/david_voelkel.jpg"></img>
+		-->
 		<h1>David Völkel</h1>
-			<p>Software craftman, developer and coach @<a href="http://www.codecentric.de">codecentric</a> and @<a href="http://www.softwerkskammer.org">Softwerkskammer</a>
-			</p>
+        <p>Software craftman, developer and coach @<a href="http://www.codecentric.de">codecentric</a> and @<a href="http://www.softwerkskammer.org">Softwerkskammer</a>
+        </p>
 	</div>
 	<div>
 		<h2>Get connected</h2>
@@ -66,6 +68,11 @@
 				<li><a href="https://blog.codecentric.de/author/david-voelkel">codecentric Blog</a></li>
 			</ul>
 		</nav>
+	</div>
+	<div>
+	    <h2>On Twitter</h2>
+		<a class="twitter-timeline" href="https://twitter.com/davidvoelkel" data-widget-id="511233506647621632">Tweets von @davidvoelkel</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 	</div>
 	<div>
         <h2>Conference Contributions</h2>
@@ -99,11 +106,6 @@
 		                <td>14.11.2013</td>
 		                <td><a href="http://www.xpdays.de/2013">XP Days Germany</a></td>
 		                <td><a href="http://www.xpdays.de/2013/sessions/098-vortrag-integration-test-hell-oder-wie-integrativ-soll-ich-testen.html">Integration test hell - oder wie integrativ soll ich testen?</a></td>
-		        </tr>
-		        <tr>
-		                <td>13.11.2013</td>
-		                <td>Java Enterprise in der Deutschen Rentenversicherung</td>
-		                <td>Test Driven Development</td>
 		        </tr>
 		        <tr>
 		                <td>17.10.2013</td>
@@ -146,11 +148,6 @@
 		                <td><a href="http://bed-con.org/2012/talks/wie-wird-mein-code-testbar">Wie wird mein Code testbar?</a></td>
 		        </tr>
 		</table>
-	</div>
-	<div>
-	    <h2>David on Twitter</h2>
-		<a class="twitter-timeline" href="https://twitter.com/davidvoelkel" data-widget-id="511233506647621632">Tweets von @davidvoelkel</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 	</div>
 </div>
 </body>
