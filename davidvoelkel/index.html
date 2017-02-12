@@ -17,20 +17,50 @@
 		font: 400 100%/1.5 "HelveticaNeue","Helvetica","Arial",sans-serif;
 		font-size: 100%;
 	}
-	/* Medium screens (640px) */
-	@media (min-width: 40rem) {
+	/* Small and Medium screens (640px) */
+	@media (min-width: 1rem) {
 		html { }
+		.container {
+			margin-left:1rem;
+			margin-right:1rem;
+		}
 	}
  
 	/* Large screens (1024px) */
 	@media (min-width: 64rem) {
 		html { }
+		.container {
+			margin-left:auto;
+			margin-right:auto;
+			max-width: 62rem;
+		}
 	}
 	.avatar {
 		padding:10px;
 	}
 	td {
 		padding:4px;
+		vertical-align:top;
+	}
+	.background {
+		z-index:-100;
+		position: fixed;
+		top: 1rem;
+	}		
+	.background-image {
+		width: 100%;
+		height: 100%;
+	}		
+	.container {
+		margin-top:0.5rem;
+		margin-bottom:0.5rem;
+		background-color:white;
+		background: rgba(255, 255, 255, 0.8);
+		padding:1rem;
+		box-shadow: 12px 0 15px -13px , -12px 0 8px -13px ;
+	}
+	body {
+		background-color: #EEEEEE;
 	}
 </style>
 
@@ -47,13 +77,14 @@
 </head>
 
 <body>
+<div class="background"><img class="background-image" src="images/coderetreat.jpg" /></div>
 <div class="container">
 	<div>
 <!--
 		<img class="avatar" width="60" height="60" src="images/david_voelkel.jpg"></img>
 		-->
 		<h1>David Völkel</h1>
-        <p>Software craftsman, developer and coach @<a href="http://www.codecentric.de">codecentric</a> and @<a href="http://www.softwerkskammer.org">Softwerkskammer</a>
+		<p>Software Craftsmanship Maniac. </p><p>Developer, Consultant and Coach @<a href="http://www.codecentric.de">codecentric</a>.</p><p> Co-organizer of the <a href="https://www.meetup.com/de-DE/Software-Craftsmanship-Meetup-Softwerkskammer-Munchen/">Softwerkskammer Software Craftsmanship Meetup Munich.</a>
         </p>
 	</div>
 	<div>
@@ -70,13 +101,33 @@
 		</nav>
 	</div>
 	<div>
-	    <h2>On Twitter</h2>
-		<a class="twitter-timeline" href="https://twitter.com/davidvoelkel" data-widget-id="511233506647621632">Tweets von @davidvoelkel</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-	</div>
-	<div>
         <h2>Community Contributions</h2>
 		<table>
+		        <tr>
+		                <td>25.05.2017</td>
+		                <td><a href="https://www.xp2017.org/">XP 2017</a></td>
+		                <td><a href="http://sched.co/9hli">Fake It Outside-In TDD</a></td>
+		        </tr>
+		        <tr>
+		                <td>22.11.2016</td>
+		                <td><a href="https://www.meetup.com/de-DE/sokahh/events/232218174">Softwerkskammer Hamburg</a></td>
+		                <td><a href="http://www.slideshare.net/davidvoelkel/mockist-vs-classicists-tdd-69505839">Mockist vs. Classicist TDD</a></td>
+		        </tr>
+		        <tr>
+		                <td>21.11.2016</td>
+		                <td><a href="http://www.xpdays.de/2016/sessions/055-wann-soll-ich-mocken.html">XP Days Germany</a></td>
+		                <td><a href="http://de.slideshare.net/davidvoelkel/wann-soll-ich-mocken">Wann soll ich mocken?</a></td>
+		        </tr>
+		        <tr>
+		                <td>14.05.2016</td>
+		                <td><a href="http://www.codemanship.co.uk/softwarecraftsmanship/">Software Craftsmanship 2016</a></td>
+		                <td><a href="https://www.meetup.com/de-DE/Software-Craftsmanship-Meetup-Softwerkskammer-Munchen/events/230050717">Organizer of the Software Craftsmanship 2016 (Munich Edition)</a></td>
+		        </tr>
+		        <tr>
+		                <td>22.10.2016</td>
+		                <td><a href="http://coderetreat.org/events/global-day-of-coderetreat-2015-munich-germany-1">Global Day of Coderetreat</a></td>
+		                <td><a href="https://www.meetup.com/de-DE/Software-Craftsmanship-Meetup-Softwerkskammer-Munchen/events/232898184">Organizer of the Global Day of Coderetreat Munich</a></td>
+		        </tr>
 		        <tr>
 		                <td>19.01.2016</td>
 		                <td><a href="https://www.softwerkskammer.org/groups/sachsen">Softwerkskammer Leipzig</a></td>
@@ -213,6 +264,11 @@
 		                <td><a href="http://bed-con.org/2012/talks/wie-wird-mein-code-testbar">Wie wird mein Code testbar?</a></td>
 		        </tr>
 		</table>
+	</div>
+	<div>
+	    <h2>On Twitter</h2>
+		<a class="twitter-timeline" href="https://twitter.com/davidvoelkel" data-widget-id="511233506647621632">Tweets von @davidvoelkel</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 	</div>
 </div>
 </body>
