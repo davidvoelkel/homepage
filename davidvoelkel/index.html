@@ -35,12 +35,29 @@
 			max-width: 62rem;
 		}
 	}
+	* {
+		//color:rgb(102, 102, 102);
+	}
 	.avatar {
 		padding:10px;
+	}
+	a, a:visited {
+		color:rgb(66, 133, 244);
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	table {
+		//table-layout: fixed;
+		width: 100%;	
 	}
 	td {
 		padding:4px;
 		vertical-align:top;
+	}
+	td:first-child {
+		width:auto;
 	}
 	.background {
 		z-index:-100;
@@ -52,6 +69,7 @@
 		height: 100%;
 	}		
 	.container {
+		display:table;
 		margin-top:0.5rem;
 		margin-bottom:0.5rem;
 		background-color:white;
