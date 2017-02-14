@@ -27,19 +27,16 @@
 	}
  
 	/* Large screens (1024px) */
-	@media (min-width: 64rem) {
+	@media (min-width: 54rem) {
 		html { }
 		.container {
 			margin-left:auto;
 			margin-right:auto;
-			max-width: 62rem;
+			max-width: 52rem;
 		}
 	}
 	* {
 		color:rgb(102, 102, 102);
-	}
-	.avatar {
-		padding:10px;
 	}
 	a, a:visited {
 		color:rgb(66, 133, 244);
@@ -49,26 +46,36 @@
 		text-decoration: underline;
 	}
 	table {
-		//table-layout: fixed;
 		width: 100%;	
 	}
 	td {
 		padding:4px;
 		vertical-align:top;
 	}
-	td:first-child {
-		width:auto;
-	}
+	.image-container {
+		width: 100%;
+	}		
 	.background {
+		width: 100%;
 		z-index:-100;
-		position: fixed;
-		top: 1rem;
+	//	position: absolute;
+		top: 0rem;
 	}		
 	.background-image {
 		width: 100%;
-		height: 100%;
 	}		
+	.avatar {
+		z-index:200;
+		position: absolute;
+		right:2rem;
+		width:14%;
+		top:1.5rem;
+		border-radius: 8px;
+		border:4px solid white;
+	}
 	.container {
+		position:relative;
+		top: -100px;
 		display:table;
 		margin-top:0.5rem;
 		margin-bottom:0.5rem;
@@ -95,12 +102,15 @@
 </head>
 
 <body>
-<div class="background"><img class="background-image" src="images/coderetreat.jpg" /></div>
+<div class="image-container">
+	<div class="background">
+		<img class="background-image" src="images/coderetreat.jpg" />
+	</div>
+</div>
+<div class="below">
 <div class="container">
+	<img class="avatar" src="images/davidvoelkel.jpg"></img>
 	<div>
-<!--
-		<img class="avatar" width="60" height="60" src="images/david_voelkel.jpg"></img>
-		-->
 		<h1>David Völkel</h1>
 		<p>Software Craftsmanship Maniac. </p><p>Developer, Consultant and Coach @<a href="http://www.codecentric.de">codecentric</a>.</p><p> Co-organizer of the <a href="https://www.meetup.com/de-DE/Software-Craftsmanship-Meetup-Softwerkskammer-Munchen/">Softwerkskammer Software Craftsmanship Meetup Munich.</a>
         </p>
@@ -288,6 +298,7 @@
 		<a class="twitter-timeline" href="https://twitter.com/davidvoelkel" data-widget-id="511233506647621632">Tweets von @davidvoelkel</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 	</div>
+</div>
 </div>
 </body>
 </html>
