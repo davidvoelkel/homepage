@@ -14,8 +14,8 @@
 	}
 	/* Small screens (default) */
 	html {
-		font: 400 100%/1.5 "HelveticaNeue","Helvetica","Arial",sans-serif;
-		font-size: 100%;
+		font: 400 100%1.5 "HelveticaNeue","Helvetica","Arial",sans-serif;
+		font-size: 95%;
 	}
 	/* Small and Medium screens (640px) */
 	@media (min-width: 1rem) {
@@ -48,9 +48,16 @@
 	table {
 		width: 100%;	
 	}
+	tr {
+		border-bottom:thin solid rgb(220, 220, 220);
+	}
+	td:nth-child(3) {
+		font-style: italic;
+	}
 	td {
 		padding:4px;
 		vertical-align:top;
+		float:left;
 	}
 	.image-container {
 		width: 100%;
