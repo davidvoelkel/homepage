@@ -6,6 +6,25 @@
 <title>David Völkel</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="normalize.css">
+<!--
+<script>
+function init() {
+  
+  var header = document.querySelector( ".header" );
+  var headertop = header.getBoundingClientRect().top;
+  
+  window.addEventListener('scroll', function(e){
+    var distanceY = window.pageYOffset || document.documentElement.scrollTop;
+    if (distanceY > headertop) { 
+	  header.className = "header fixed"
+    } else { 
+	  header.className = "header relative"
+    }
+  });
+}
+window.onload = init;
+window.onresize = init;
+</script>-->
 <style>
 	*, *:before, *:after {
 		-moz-box-sizing: border-box;
@@ -19,7 +38,7 @@
 	}
 	/* Small and Medium screens (640px) */
 	@media (min-width: 1rem) {
-		.container {
+		.center {
 			margin-left:1rem;
 			margin-right:1rem;
 		}
@@ -27,7 +46,7 @@
  
 	/* Large screens (1024px) */
 	@media (min-width: 54rem) {
-		.container {
+		.center {
 			margin-left:auto;
 			margin-right:auto;
 			max-width: 52rem;
@@ -68,24 +87,45 @@
 	.background-image {
 		width: 100%;
 	}		
+	.avatar-container {
+		width:10%;
+		//width:8rem;
+		//height:2rem;
+	}
 	.avatar {
+		margin-left:0.5rem;
 		float:right;
+		min-width:3.5rem;
+		width:22%;
+		// position:absolute;
 		z-index:200;
-		width:14%;
 		border-radius: 8px;
 		border:4px solid white;
-		box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-		margin-left:1rem;
+		box-shadow:0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); 
 	}
+	.header-center {
+		padding:1rem;
+	}
+	.header {
+		position:fixed;
+		top:0rem;
+		z-index:100;
+		height:4rem;
+		width:100%;
+		background-color:white;
+		background: rgba(255, 255, 255, 0.8);
+		box-shadow:0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); 
+	}	
 	div.person h1 {
-		margin-top:5.4rem;
 		white-space:nowrap;
 		display:block;
 	}
 	.container {
 		position:relative;
-		top: -5rem; display:table; margin-top:0.5rem; margin-bottom:0.5rem; background-color:white;
-		background: rgba(255, 255, 255, 0.8);
+		display:table; 
+		margin-top:0.5rem; 
+		margin-bottom:0.5rem; 
+		background-color:white;
 		padding:1rem;
 		box-shadow:0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); 
 	}
@@ -119,20 +159,24 @@
 </head>
 
 <body>
+<div class="header">
+  <div class="header-center center">
+	<img class="avatar" src="images/davidvoelkel.jpg"></img>
+			<span class="social-item"><a href="https://blog.codecentric.de/author/david-voelkel"><img title="David on codecentric Blog" alt="David on codecentric Blog" src="images/codecentric.jpg" /></a></span>
+			<!--<span class="social-item"><a href="https://plus.google.com/+DavidV%C3%B6lkel"><img title="David on Google+" alt="David on Google+"src="images/google+.png" /></a></span>-->
+			<span class="social-item"><a href="https://github.com/davidvoelkel"><img title="David on GitHub" alt="David on GitHub" src="images/github.png" /></a></span>
+			<span class="social-item"><a href="https://www.xing.com/profile/David_Voelkel"><img title="David on XING" alt="David on XING" src="images/xing.png" /></a></span>
+			<span class="social-item"><a href="https://www.linkedin.com/pub/david-v%C3%B6lkel/a0/3b9/709"><img title="David on LinkeIn" alt="David on LinkedIn" src="images/linkedin.png" /></a></span>
+			<span class="social-item"><a href="http://twitter.com/davidvoelkel"><img title="David on Twitter" alt="David on Twitter" src="images/twitter.png" /></a></span>
+  </div>
+</div>
 <div class="image-container">
 	<div class="background">
 		<img class="background-image" src="images/coderetreat.jpg" />
 	</div>
 </div>
 <div class="below">
-<div class="container">
-	<img class="avatar" src="images/davidvoelkel.jpg"></img>
-			<span class="social-item"><a href="https://blog.codecentric.de/author/david-voelkel"><img title="David on codecentric Blog" alt="David on codecentric Blog" src="images/codecentric.jpg" /></a></span>
-			<span class="social-item"><a href="https://plus.google.com/+DavidV%C3%B6lkel"><img title="David on Google+" alt="David on Google+"src="images/google+.png" /></a></span>
-			<span class="social-item"><a href="https://github.com/davidvoelkel"><img title="David on GitHub" alt="David on GitHub" src="images/github.png" /></a></span>
-			<span class="social-item"><a href="https://www.xing.com/profile/David_Voelkel"><img title="David on XING" alt="David on XING" src="images/xing.png" /></a></span>
-			<span class="social-item"><a href="https://www.linkedin.com/pub/david-v%C3%B6lkel/a0/3b9/709"><img title="David on LinkeIn" alt="David on LinkedIn" src="images/linkedin.png" /></a></span>
-			<span class="social-item"><a href="http://twitter.com/davidvoelkel"><img title="David on Twitter" alt="David on Twitter" src="images/twitter.png" /></a></span>
+<div class="container center">
 	<div class="person">
 		<h1>David Völkel</h1>
 		<p>Software Craftsmanship Maniac. </p>
