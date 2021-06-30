@@ -99,7 +99,7 @@ function registerAutoComplete(inp: HTMLInputElement, streets: string[]) {
 
 async function fetchCommunity() {
 
-  const street = document.getElementById('street').value
+  const street = (document.getElementById('street') as HTMLInputElement).value
   const communityResponse = await (await fetch(`https://services.elkb.info/apps/service/cfinder/communities?format=json&filter=(location=Landshut,street=${encodeURIComponent(street)})`)).json()
   var communitiesList = document.querySelector('#communities-list');
   while (communitiesList.firstChild) {
@@ -109,8 +109,8 @@ async function fetchCommunity() {
   var template = document.querySelector('#community-template');
 
   // Clone the new row and insert it into the table
-  communityResponse.result.communities.forEach(community => {
-    var clone = template.content.cloneNode(true);
+  communityResponse.result.communities.forEach((community: { description: any; preferredEmail: any; tel: any; fax: any; links: any[]; street: any; pcode: string; locality: string; openingHours: any; }) => {
+    var clone = (template as HTMLTemplateElement).content.cloneNode(true) as HTMLElement;
     var trs = clone.querySelectorAll("tr");
     trs[0].childNodes[1].textContent = community.description;
     trs[1].childNodes[1].textContent = community.preferredEmail;
