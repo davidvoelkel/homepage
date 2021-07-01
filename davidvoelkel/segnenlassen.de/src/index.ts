@@ -4,6 +4,7 @@ function registerAutoComplete(inp: HTMLInputElement, streets: string[]) {
   /*the registerAutoComplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
   var currentFocus: number;
+
   /*execute a function when someone writes in the text field:*/
   inp.addEventListener("input", function(e) {
     var a, b, i, val = this.value;
@@ -97,37 +98,60 @@ function registerAutoComplete(inp: HTMLInputElement, streets: string[]) {
   });
 }
 
-async function fetchCommunity() {
+async function fetchCommunity(location: string) {
 
   const street = (document.getElementById('street') as HTMLInputElement).value
-  const communityResponse = await (await fetch(`https://services.elkb.info/apps/service/cfinder/communities?format=json&filter=(location=Landshut,street=${encodeURIComponent(street)})`)).json()
+  const communityResponse = await (await fetch(`https://services.elkb.info/apps/service/cfinder/communities?format=json&filter=(location=${encodeURIComponent(location)},street=${encodeURIComponent(street)})`)).json()
   var communitiesList = document.querySelector('#communities-list');
   while (communitiesList.firstChild) {
     communitiesList.removeChild(communitiesList.firstChild);
   }
-  console.log(communitiesList.childNodes)
-  var template = document.querySelector('#community-template');
+  let dekanatsSites = {
+    "2419": "57",
+    "2418": "58",
+    "2417": "64",
+    "2422": "61",
+    "2420": "62",
+    "2412": "63",
+    "2421": "60",
+    "2415": "55",
+    "2416": "56",
+    "2414": "53",
+    "2413": "59",
+  }
 
   // Clone the new row and insert it into the table
-  communityResponse.result.communities.forEach((community: { description: any; preferredEmail: any; tel: any; fax: any; links: any[]; street: any; pcode: string; locality: string; openingHours: any; }) => {
+  communityResponse.result.communities.forEach((community: { description: any; preferredEmail: any; tel: any; fax: any; links: any[]; street: any; pcode: string; locality: string; openingHours: any; elkbid: string;}) => {
+    // @ts-ignore
+    const dekantsSite = dekanatsSites[community.elkbid]
+    var template = document.querySelector(dekantsSite ? '#community-template-simple' : '#community-template');
     var clone = (template as HTMLTemplateElement).content.cloneNode(true) as HTMLElement;
     var trs = clone.querySelectorAll("tr");
-    trs[0].childNodes[1].textContent = community.description;
-    trs[1].childNodes[1].textContent = community.preferredEmail;
-    trs[2].childNodes[1].textContent = community.tel;
-    trs[3].childNodes[1].textContent = community.fax;
-    community.links.forEach((link) => {
-      let a = document.createElement('a');
-      a.textContent = link.title
-      a.setAttribute('href', link.url)
-      trs[4].childNodes[1].appendChild(a)
-      trs[4].childNodes[1].appendChild(document.createElement('br'))
-    });
-    // trs[4].childNodes[1].textContent = community.;
-    // links: (3) [{…}, {…}, {…}]
-    trs[5].childNodes[1].textContent = community.street;
-    trs[6].childNodes[1].textContent = community.pcode + ' ' + community.locality;
-    trs[7].childNodes[1].textContent = community.openingHours;
+    console.log(community)
+    if (dekantsSite) {
+      let a = trs[0].getElementsByTagName("a")[0] as HTMLAnchorElement
+      a.href = "https://www.segnenlassen.de/node/" + dekantsSite
+      a.textContent = community.description
+    } else {
+      trs[0].childNodes[1].textContent = community.description;
+      trs[1].childNodes[1].textContent = community.preferredEmail;
+      trs[2].childNodes[1].textContent = community.tel;
+      trs[3].childNodes[1].textContent = community.fax;
+      if (Array.isArray(community.links)) {
+        community.links.forEach((link) => {
+          let a = document.createElement('a');
+          a.textContent = link.url;
+          a.setAttribute('href', link.url)
+          trs[4].childNodes[1].appendChild(a)
+          trs[4].childNodes[1].appendChild(document.createElement('br'))
+        });
+      } else {
+        trs[4].setAttribute("style", "display:none")
+      }
+      trs[5].childNodes[1].textContent = community.street;
+      trs[6].childNodes[1].textContent = community.pcode + ' ' + community.locality;
+      trs[7].childNodes[1].textContent = community.openingHours;
+    }
     // lat: "48.535668200000"
     // long: "12.145434700000"
     // trs[0].childNodes[1].textContent = community.;
@@ -139,17 +163,52 @@ async function fetchCommunity() {
 async function loadBody() {
   const body = document.getElementsByTagName("body")[0]
   body.innerHTML = await (await fetch("body.html")).text();
-  const streetsResponse = await (await fetch("https://services.elkb.info/apps/service/cfinder/streets?format=json&filter=(location=Landshut)")).json()
-  const streets = streetsResponse.result.streets.map((street: { street: any; }) => street.street);
-  let input = <HTMLInputElement>document.getElementById("street");
+}
+
+async function fetchStreets(location: string) {
+  const streetsResponse = await (await fetch("https://services.elkb.info/apps/service/cfinder/streets?format=json&filter=(location=" + location + ")")).json()
+  console.log(streetsResponse.result)
+  return streetsResponse.result.streets ?
+  streetsResponse.result.streets?.map((street: { street: any; }) => street.street)
+      : []
+      ;
+}
+
+async function init() {
+  await loadBody();
+
+  let locationInput = <HTMLInputElement>document.getElementById("location");
+
   const searchButton = <HTMLInputElement>document.getElementById("search-button");
-  searchButton.addEventListener("click", fetchCommunity);
-  registerAutoComplete(input, streets);
+  searchButton.addEventListener("click", async () => await fetchCommunity(locationInput.value));
+  searchButton.disabled = true
+
+  let streetInput = <HTMLInputElement>document.getElementById("street");
+  streetInput.disabled = true
+
+  locationInput.addEventListener("blur", async () => {
+    let streets = await fetchStreets(locationInput.value);
+    registerAutoComplete(streetInput, streets);
+
+    const errorMessage = <HTMLSpanElement>document.getElementById("error-message");
+    let foundStreets = streets.length > 0;
+    errorMessage.textContent = foundStreets ? "" : "Ort nicht gefunden!";
+    searchButton.disabled = !foundStreets
+    streetInput.disabled = !foundStreets
+  });
+  locationInput.addEventListener("click", () => {
+    streetInput.value = '';
+  });
+  locationInput.addEventListener("onchange", () => {
+    streetInput.value = '';
+  });
+
 }
 
 
 
-setTimeout(() => loadBody(), 1)
+
+setTimeout(() => init(), 1)
 
 
 
