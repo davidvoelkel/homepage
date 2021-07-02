@@ -175,10 +175,6 @@ async function fetchCommunity(location: string) {
       trs[6].childNodes[1].textContent = community.pcode + ' ' + community.locality;
       trs[7].childNodes[1].textContent = community.openingHours;
     }
-    // lat: "48.535668200000"
-    // long: "12.145434700000"
-    // trs[0].childNodes[1].textContent = community.;
-    // trs[0].childNodes[1].textContent = community.;
     communitiesList.appendChild(clone);
   });
 }
@@ -192,9 +188,8 @@ async function fetchStreets(location: string) {
   const streetsResponse = await (await fetch("https://services.elkb.info/apps/service/cfinder/streets?format=json&filter=(location=" + location + ")")).json()
   console.log(streetsResponse.result)
   return streetsResponse.result.streets ?
-  streetsResponse.result.streets?.map((street: { street: any; }) => street.street)
-      : []
-      ;
+    streetsResponse.result.streets.map((street: { street: any; }) => street.street)
+        : [];
 }
 
 async function init() {
@@ -217,6 +212,10 @@ async function init() {
       locationInput.value = ""
       locationInput.dispatchEvent(new Event('input', { 'bubbles': true }))
     }
+  });
+
+  locationInput.addEventListener("input", () => {
+    locationSearchButton.disabled = locationInput.value?.length < 3
   });
 
   const searchButton = <HTMLInputElement>document.getElementById("search-button");

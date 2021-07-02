@@ -1,12 +1,12 @@
-<div style="display: inline-block" id="location-search">
+<div id="location-search" style="display: inline-block">
   <div class="autocomplete">
     <input id="location" type="text" placeholder="Ort" autocomplete="off">
   </div>
-  <span id="error-message" class="hidden">Kein Ort gefunden</span>
-  <input type="button" id="location-search-button" value="Suchen">
+  <span id="error-message" class="hidden">Ort nicht gefunden</span>
+  <input type="button" id="location-search-button" value="Suchen" disabled>
   <input type="button" id="location-reset-button" value="X" class="hidden" onClick="window.location.reload();">
 </div>
-<div class="hidden" id="street-search">
+<div id="street-search" class="hidden">
   <div class="autocomplete">
     <input id="street" type="text" placeholder="Strasse" autocomplete="off" >
   </div>
