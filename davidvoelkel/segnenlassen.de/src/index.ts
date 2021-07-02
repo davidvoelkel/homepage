@@ -1,11 +1,11 @@
 import './style.css';
-import 'babel-polyfill'
+import 'core-js'
 import 'whatwg-fetch'
-
-console.log("start");
 
 var ES6Promise = require("es6-promise");
 ES6Promise.polyfill();
+
+console.log("start");
 
 function locationSelected() {
   const locationInput = <HTMLInputElement>document.getElementById("location");
