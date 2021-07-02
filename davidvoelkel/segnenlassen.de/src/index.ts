@@ -1,5 +1,7 @@
 import './style.css';
 
+console.log("start");
+
 var ES6Promise = require("es6-promise");
 ES6Promise.polyfill();
 
@@ -184,7 +186,10 @@ async function fetchCommunity(location: string) {
 
 async function loadBody() {
   const body = document.getElementsByTagName("body")[0]
+  console.log("before fetch body");
+
   body.innerHTML = await (await fetch("body.html")).text();
+  console.log("after fetch body");
 }
 
 async function fetchStreets(location: string) {
@@ -196,6 +201,8 @@ async function fetchStreets(location: string) {
 }
 
 async function init() {
+  console.log("init()");
+
   await loadBody();
 
   let locationInput = <HTMLInputElement>document.getElementById("location");
@@ -227,6 +234,7 @@ async function init() {
 
 
 
+console.log("before setTImeout");
 
 setTimeout(() => init(), 1)
 
