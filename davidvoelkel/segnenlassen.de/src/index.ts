@@ -1,5 +1,23 @@
 import './style.css';
 
+function locationSelected() {
+  const locationInput = <HTMLInputElement>document.getElementById("location");
+  locationInput.setAttribute("readonly", "true");
+
+  const locationSearchButton = <HTMLInputElement>document.getElementById("location-search-button");
+  locationSearchButton.setAttribute("class", "hidden");
+  const locationResetButton = <HTMLInputElement>document.getElementById("location-reset-button");
+  locationResetButton.setAttribute("class", "");
+
+  const streetSearchDiv = <HTMLDivElement>document.getElementById("street-search");
+  streetSearchDiv.setAttribute("class", "shown");
+
+  let streetInput = <HTMLInputElement>document.getElementById("street");
+
+  fetchStreets(locationInput.value)
+    .then((streets) => registerAutoComplete(streetInput, streets));
+}
+
 function registerAutoComplete(inp: HTMLInputElement, suggestions: string[]) {
   /*the registerAutoComplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
@@ -34,6 +52,7 @@ function registerAutoComplete(inp: HTMLInputElement, suggestions: string[]) {
           /*close the list of autocompleted values,
           (or any other open lists of autocompleted values:*/
           closeAllLists();
+          locationSelected();
         });
         a.appendChild(b);
       }
@@ -192,6 +211,7 @@ async function init() {
       errorMessage.removeAttribute("class");
     } else if (locations.length == 1) {
       locationInput.value = locations[0];
+      locationSelected();
     } else if (locations.length > 1) {
       registerAutoComplete(locationInput, locations);
       locationInput.value = ""
@@ -201,20 +221,6 @@ async function init() {
 
   const searchButton = <HTMLInputElement>document.getElementById("search-button");
   searchButton.addEventListener("click", async () => await fetchCommunity(locationInput.value));
-
-  let streetInput = <HTMLInputElement>document.getElementById("street");
-
-  locationInput.addEventListener("blur", async () => {
-    let streets = await fetchStreets(locationInput.value);
-    registerAutoComplete(streetInput, streets);
-  });
-  locationInput.addEventListener("click", () => {
-    streetInput.value = '';
-  });
-  locationInput.addEventListener("onchange", () => {
-    streetInput.value = '';
-  });
-
 }
 
 

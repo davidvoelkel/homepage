@@ -6,15 +6,9 @@ body {
   font: 16px Arial;
 }
 
-select {
-  font: 16px Arial;
-  height: 40px
-}
-
 span#error-message {
   color: red;
 }
-
 
 input {
   border: 1px solid transparent;
@@ -38,7 +32,6 @@ input#search-button {
 .autocomplete {
   position: relative;
   display: inline-block;
-  width: 300px;
 }
 
 .autocomplete-items {
@@ -73,6 +66,10 @@ input#search-button {
 
 .hidden {
   display: none;
+}
+
+.shown {
+  display: inline-block;
 }
 
 table.community-table {
