@@ -9,7 +9,7 @@ console.log("start");
 
 function locationSelected() {
   const locationInput = <HTMLInputElement>document.getElementById("location");
-  locationInput.setAttribute("readonly", "true");
+  locationInput.setAttribute("readonly", "readonly");
 
   const locationSearchButton = <HTMLInputElement>document.getElementById("location-search-button");
   locationSearchButton.setAttribute("class", "hidden");
@@ -223,6 +223,7 @@ async function init() {
       registerAutoComplete(locationInput, locations);
       locationInput.value = ""
       locationInput.dispatchEvent(new Event('input', { 'bubbles': true }))
+      locationInput.dispatchEvent(new Event('change', { 'bubbles': true }))
     }
   });
 
