@@ -244,8 +244,10 @@ async function init() {
     } else if (locations.length > 1) {
       registerAutoComplete(locationInput, locations);
       locationInput.value = "";
-      locationInput.focus();
       locationInput.click();
+      locationInput.focus();
+      locationInput.blur();
+      locationInput.dispatchEvent(new Event('input', { 'bubbles': true }))
     }
   });
 
