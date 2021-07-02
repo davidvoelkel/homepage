@@ -5,8 +5,6 @@ import 'whatwg-fetch'
 var ES6Promise = require("es6-promise");
 ES6Promise.polyfill();
 
-console.log("start index.ts");
-
 function locationSelected() {
   const locationInput = <HTMLInputElement>document.getElementById("location");
   locationInput.setAttribute("readonly", "readonly");
@@ -116,7 +114,6 @@ function registerAutoComplete(inp: HTMLInputElement, suggestions: string[]) {
       }
     }
   }
-  /*execute a function when someone clicks in the document:*/
   document.addEventListener("click", function (e) {
     closeAllLists(e.target);
   });
@@ -128,10 +125,22 @@ async function fetchLocations(location: string) {
   return locationsResponse.result.locations?.map((location: { location: string }) => location.location);
 }
 
-async function fetchCommunity(location: string) {
+function appendTr(table: HTMLElement, label: string, value: any) {
+  let tr = document.createElement('tr');
+  table.appendChild(tr);
+  let tdLable = document.createElement('td');
+  tdLable.textContent = label;
+  tr.appendChild(tdLable);
 
+  let tdValue = document.createElement('td');
+  tdValue.textContent = value;
+  tr.appendChild(tdValue);
+}
+
+async function fetchCommunity(location: string) {
   const street = (document.getElementById('street') as HTMLInputElement).value
   const communityResponse = await (await fetch(`https://services.elkb.info/apps/service/cfinder/communities?format=json&filter=(location=${encodeURIComponent(location)},street=${encodeURIComponent(street)})`)).json()
+  console.log("end fetch")
   var communitiesList = document.querySelector('#communities-list');
   while (communitiesList.firstChild) {
     communitiesList.removeChild(communitiesList.firstChild);
@@ -150,39 +159,54 @@ async function fetchCommunity(location: string) {
     "2413": "59",
   }
 
-  // Clone the new row and insert it into the table
   communityResponse.result.communities.forEach((community: { description: any; preferredEmail: any; tel: any; fax: any; links: any[]; street: any; pcode: string; locality: string; openingHours: any; elkbid: string;}) => {
+    console.log("community")
+    console.log(community)
+
+    let table = document.createElement('table');
+    table.setAttribute("class", "community-table");
+    communitiesList.appendChild(table);
+
     // @ts-ignore
     const dekantsSite = dekanatsSites[community.elkbid]
-    var template = document.querySelector(dekantsSite ? '#community-template-simple' : '#community-template');
-    var clone = (template as HTMLTemplateElement).content.cloneNode(true) as HTMLElement;
-    var trs = clone.querySelectorAll("tr");
-    console.log(community)
     if (dekantsSite) {
-      let a = trs[0].getElementsByTagName("a")[0] as HTMLAnchorElement
-      a.href = "https://www.segnenlassen.de/node/" + dekantsSite
-      a.textContent = community.description
+      let tr = document.createElement('tr');
+      table.appendChild(tr);
+      let tdLable = document.createElement('td');
+      tdLable.textContent = "Gemeinde:";
+      tr.appendChild(tdLable);
+
+      let td = document.createElement('td');
+      tr.appendChild(td);
+
+      let a = document.createElement('a');
+      a.setAttribute("href",  "https://www.segnenlassen.de/node/" + dekantsSite);
+      a.textContent = community.description;
+      td.appendChild(a);
     } else {
-      trs[0].childNodes[1].textContent = community.description;
-      trs[1].childNodes[1].textContent = community.preferredEmail;
-      trs[2].childNodes[1].textContent = community.tel;
-      trs[3].childNodes[1].textContent = community.fax;
+      appendTr(table, "Gemeinde:", community.description);
+      appendTr(table, "E-Mail:", community.preferredEmail);
+      appendTr(table, "Telefon:", community.tel);
+      appendTr(table, "Fax:", community.fax);
+      appendTr(table, "Strasse:", community.street);
+      appendTr(table, "Ort:", community.pcode + ' ' + community.locality);
+      appendTr(table, "Öffnungszeiten:", community.openingHours);
       if (Array.isArray(community.links)) {
+        let tdLable = document.createElement('td');
+        tdLable.textContent = "Webseite(n):";
+        table.appendChild(tdLable);
+
+        let tdValue = document.createElement('td');
+        table.appendChild(tdValue);
         community.links.forEach((link) => {
           let a = document.createElement('a');
           a.textContent = link.url;
-          a.setAttribute('href', link.url)
-          trs[4].childNodes[1].appendChild(a)
-          trs[4].childNodes[1].appendChild(document.createElement('br'))
+          a.setAttribute('href', link.url);
+          tdValue.appendChild(a);
+          tdValue.appendChild(document.createElement('br'));
         });
-      } else {
-        trs[4].setAttribute("style", "display:none")
       }
-      trs[5].childNodes[1].textContent = community.street;
-      trs[6].childNodes[1].textContent = community.pcode + ' ' + community.locality;
-      trs[7].childNodes[1].textContent = community.openingHours;
     }
-    communitiesList.appendChild(clone);
   });
 }
 
@@ -201,8 +225,6 @@ async function fetchStreets(location: string) {
 }
 
 async function init() {
-  console.log("init()");
-
   await loadBody();
 
   let locationInput = <HTMLInputElement>document.getElementById("location");
@@ -210,6 +232,7 @@ async function init() {
   const locationSearchButton = <HTMLInputElement>document.getElementById("location-search-button");
   locationSearchButton.addEventListener("click", async () => {
     let locations = await fetchLocations(locationInput.value);
+    console.log(locations)
     const errorMessage = <HTMLSpanElement>document.getElementById("error-message");
     errorMessage.setAttribute("class", "hidden");
     if (!locations || !Array.isArray(locations) || locations.length == 0) {
@@ -232,10 +255,6 @@ async function init() {
   const searchButton = <HTMLInputElement>document.getElementById("search-button");
   searchButton.addEventListener("click", async () => await fetchCommunity(locationInput.value));
 }
-
-
-
-console.log("before setTImeout");
 
 setTimeout(() => init(), 1)
 
