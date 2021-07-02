@@ -188,10 +188,8 @@ async function fetchCommunity(location: string) {
 
 async function loadBody() {
   const body = document.getElementsByTagName("body")[0]
-  console.log("before fetch body");
 
   body.innerHTML = await (await fetch("body.html")).text();
-  console.log("after fetch body");
 }
 
 async function fetchStreets(location: string) {
@@ -221,9 +219,9 @@ async function init() {
       locationSelected();
     } else if (locations.length > 1) {
       registerAutoComplete(locationInput, locations);
-      locationInput.value = ""
-      locationInput.dispatchEvent(new Event('input', { 'bubbles': true }))
-      locationInput.dispatchEvent(new Event('change', { 'bubbles': true }))
+      locationInput.value = "";
+      locationInput.focus();
+      locationInput.click();
     }
   });
 

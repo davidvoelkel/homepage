@@ -27,7 +27,8 @@ input[type=text] {
 }
 
 input[type=button]:disabled {
-  color: rgba(0,0,0,.15);
+  /*color: rgba(0,0,0,.15);*/
+  color: red;
   border: 2px solid rgba(0,0,0,.15);
   cursor: not-allowed;
 }
