@@ -181,6 +181,7 @@ async function fetchCommunity(location: string) {
 
       let a = document.createElement('a');
       a.setAttribute("href",  "https://www.segnenlassen.de/node/" + dekantsSite);
+      a.setAttribute("target",  "_top");
       a.textContent = community.description;
       td.appendChild(a);
     } else {
