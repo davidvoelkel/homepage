@@ -1,5 +1,8 @@
 import './style.css';
 
+var ES6Promise = require("es6-promise");
+ES6Promise.polyfill();
+
 function locationSelected() {
   const locationInput = <HTMLInputElement>document.getElementById("location");
   locationInput.setAttribute("readonly", "true");

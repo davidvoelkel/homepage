@@ -1,5 +1,7 @@
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {ProvidePlugin} = require("webpack");
 
 module.exports = {
   mode: 'development',
@@ -16,7 +18,12 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  plugins: [new HtmlWebpackPlugin({title: 'Gemeindesuche'})],
+  plugins: [
+    new HtmlWebpackPlugin({title: 'Gemeindesuche'}),
+    new ProvidePlugin({
+      Promise: 'es6-promise-promise', // works as expected
+    })
+  ],
   module: {
     rules: [
       {
