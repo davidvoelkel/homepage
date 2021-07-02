@@ -71,6 +71,10 @@ input#search-button {
   color: #ffffff;
 }
 
+.hidden {
+  display: none;
+}
+
 table.community-table {
   margin: 10px;
   background-color: #f1f1f1;

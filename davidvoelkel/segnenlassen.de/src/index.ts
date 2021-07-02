@@ -1,6 +1,6 @@
 import './style.css';
 
-function registerAutoComplete(inp: HTMLInputElement, streets: string[]) {
+function registerAutoComplete(inp: HTMLInputElement, suggestions: string[]) {
   /*the registerAutoComplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
   var currentFocus: number;
@@ -10,7 +10,6 @@ function registerAutoComplete(inp: HTMLInputElement, streets: string[]) {
     var a, b, i, val = this.value;
     /*close any already open lists of autocompleted values*/
     closeAllLists();
-    if (!val) { return false;}
     currentFocus = -1;
     /*create a DIV element that will contain the items (values):*/
     a = document.createElement("DIV");
@@ -19,16 +18,15 @@ function registerAutoComplete(inp: HTMLInputElement, streets: string[]) {
     /*append the DIV element as a child of the registerAutoComplete container:*/
     this.parentNode.appendChild(a);
     /*for each item in the array...*/
-    for (i = 0; i < streets.length; i++) {
+    for (i = 0; i < suggestions.length; i++) {
       /*check if the item starts with the same letters as the text field value:*/
-      if (streets[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+      if (suggestions[i].toUpperCase().includes(val.toUpperCase())) {
         /*create a DIV element for each matching element:*/
         b = document.createElement("DIV");
         /*make the matching letters bold:*/
-        b.innerHTML = "<strong>" + streets[i].substr(0, val.length) + "</strong>";
-        b.innerHTML += streets[i].substr(val.length);
+        b.innerHTML = suggestions[i];
         /*insert a input field that will hold the current array item's value:*/
-        b.innerHTML += "<input type='hidden' value='" + streets[i] + "'>";
+        b.innerHTML += "<input type='hidden' value='" + suggestions[i] + "'>";
         /*execute a function when someone clicks on the item value (DIV element):*/
         b.addEventListener("click", function(e) {
           /*insert the value for the registerAutoComplete text field:*/
@@ -96,6 +94,12 @@ function registerAutoComplete(inp: HTMLInputElement, streets: string[]) {
   document.addEventListener("click", function (e) {
     closeAllLists(e.target);
   });
+}
+
+async function fetchLocations(location: string) {
+  const locationsResponse = await (await fetch(`https://services.elkb.info/apps/service/cfinder/locations?format=json&filter=(locSearch=${encodeURIComponent(location)})`)).json()
+
+  return locationsResponse.result.locations?.map((location: { location: string }) => location.location);
 }
 
 async function fetchCommunity(location: string) {
@@ -179,22 +183,30 @@ async function init() {
 
   let locationInput = <HTMLInputElement>document.getElementById("location");
 
+  const locationSearchButton = <HTMLInputElement>document.getElementById("location-search-button");
+  locationSearchButton.addEventListener("click", async () => {
+    let locations = await fetchLocations(locationInput.value);
+    const errorMessage = <HTMLSpanElement>document.getElementById("error-message");
+    errorMessage.setAttribute("class", "hidden");
+    if (!locations || !Array.isArray(locations) || locations.length == 0) {
+      errorMessage.removeAttribute("class");
+    } else if (locations.length == 1) {
+      locationInput.value = locations[0];
+    } else if (locations.length > 1) {
+      registerAutoComplete(locationInput, locations);
+      locationInput.value = ""
+      locationInput.dispatchEvent(new Event('input', { 'bubbles': true }))
+    }
+  });
+
   const searchButton = <HTMLInputElement>document.getElementById("search-button");
   searchButton.addEventListener("click", async () => await fetchCommunity(locationInput.value));
-  searchButton.disabled = true
 
   let streetInput = <HTMLInputElement>document.getElementById("street");
-  streetInput.disabled = true
 
   locationInput.addEventListener("blur", async () => {
     let streets = await fetchStreets(locationInput.value);
     registerAutoComplete(streetInput, streets);
-
-    const errorMessage = <HTMLSpanElement>document.getElementById("error-message");
-    let foundStreets = streets.length > 0;
-    errorMessage.textContent = foundStreets ? "" : "Ort nicht gefunden!";
-    searchButton.disabled = !foundStreets
-    streetInput.disabled = !foundStreets
   });
   locationInput.addEventListener("click", () => {
     streetInput.value = '';
