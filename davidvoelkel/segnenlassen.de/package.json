@@ -31,7 +31,9 @@
     "> 1%"
   ],
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "es6-promise-promise": "^1.0.0",
-    "isomorphic-fetch": "^3.0.0"
+    "isomorphic-fetch": "^3.0.0",
+    "whatwg-fetch": "^3.6.2"
   }
 }

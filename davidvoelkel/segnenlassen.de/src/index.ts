@@ -1,4 +1,6 @@
 import './style.css';
+import 'babel-polyfill'
+import 'whatwg-fetch'
 
 console.log("start");
 
