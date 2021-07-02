@@ -5,7 +5,7 @@ import 'whatwg-fetch'
 var ES6Promise = require("es6-promise");
 ES6Promise.polyfill();
 
-console.log("start");
+console.log("start index.ts");
 
 function locationSelected() {
   const locationInput = <HTMLInputElement>document.getElementById("location");
