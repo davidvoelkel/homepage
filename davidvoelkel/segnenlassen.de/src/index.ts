@@ -21,6 +21,8 @@ function locationSelected() {
 
   fetchStreets(locationInput.value)
     .then((streets) => registerAutoComplete(streetInput, streets));
+
+  streetInput.focus()
 }
 
 function registerAutoComplete(inp: HTMLInputElement, suggestions: string[]) {
@@ -139,7 +141,10 @@ function appendTr(table: HTMLElement, label: string, value: any) {
 
 async function fetchCommunity(location: string) {
   const street = (document.getElementById('street') as HTMLInputElement).value
-  const communityResponse = await (await fetch(`https://services.elkb.info/apps/service/cfinder/communities?format=json&filter=(location=${encodeURIComponent(location)},street=${encodeURIComponent(street)})`)).json()
+  const streetNumber = (document.getElementById('street-number') as HTMLInputElement).value
+  const streetNumberFilter = streetNumber ? `,hsnr=${streetNumber}` : "";
+  let filter = `location=${encodeURIComponent(location)},street=${encodeURIComponent(street)}${streetNumberFilter}`;
+  const communityResponse = await (await fetch(`https://services.elkb.info/apps/service/cfinder/communities?format=json&filter=(${filter})`)).json()
   console.log("end fetch")
   var communitiesList = document.querySelector('#communities-list');
   while (communitiesList.firstChild) {

@@ -54,6 +54,10 @@ input[type=button] {
   display: inline-block;
 }
 
+input#street-number {
+  width: 4rem;
+}
+
 .autocomplete-items {
   position: absolute;
   border: 1px solid rgba(0,0,0,.15);
@@ -91,10 +95,15 @@ input[type=button] {
 table.community-table {
   margin: 10px;
   background-color: #f1f1f1;
+  width: 100%;
 }
 
 table.community-table td {
   padding: 4px;
+}
+
+table.community-table td:nth-child(1) {
+  width: 1%;
 }
 
 a, a:visited {
